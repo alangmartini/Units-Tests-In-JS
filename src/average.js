@@ -11,6 +11,15 @@
     - average([1, '2']) // Retorno: undefined;
 */
 
-const average = () => {};
+const average = (arr) => {
+  let types = arr.map((item) => (typeof item === 'string' ? 'string' : 'number'));
+  let containString = types.join(', ').includes('string');
+  if (arr.length === 0 || containString === true) {
+    return undefined;
+  } 
+  return Math.round((arr.reduce((acc, curr) => acc + curr)) / arr.length);
+};
 
 module.exports = average;
+
+console.log(average([0, 0, 0, 0, 0, 0, 1]));
