@@ -55,10 +55,7 @@ const { createMenu, restaurant } = require('../src/restaurant');
 describe('10 - Implemente a função `createMenu`, bem como seus casos de teste', () => {
   it('Verifica se a função `createMenu` tem o comportamento esperado', () => {
     // TESTE 1: Verifique se função `createMenu()` retorna um objeto que possui a chave `fetchMenu`, a qual tem como valor uma função.
-    const restaurant = {
-      consumption: [],
-    }
-
+    const menu = { food: { coxinha: 3.9, sopa: 9.9 }, drink: { agua: 3.9, cerveja: 6.9 } };
     expect(typeof createMenu(menu).fetchMenu).toBe('function')
     let keysFunction = Object.keys(createMenu(menu).fetchMenu());
     let keysMenu = Object.keys(menu);
@@ -77,7 +74,6 @@ describe('10 - Implemente a função `createMenu`, bem como seus casos de teste'
     createMenu(menu).order('cerveja')
     expect(restaurant.consumption.join(', ').match(/cerveja/g)
     ).toHaveLength(2)
-    expect(restaurant.pay()).toBe(31.5)
-
+    expect(createMenu(menu).pay()).toBe(35)
   });
 });

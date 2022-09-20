@@ -99,16 +99,23 @@ const restaurant = {
   consumption: [],
 };
 
+const pay = () => {
+  const itemPrice = {};
+  Object.values(menu1).forEach((item) => {
+    Object.assign(itemPrice, item);
+  });
+  let consump = restaurant.consumption.reduce((acc, curr) => acc + itemPrice[curr], 0);
+  return Math.round(consump * 1.1);
+};
+
+console.log(pay());
 const createMenu = (menu) => ({
     fetchMenu: () => (menu),
     consumption: [],
     order: (item) => {
       restaurant.consumption.push(item);
-      console.log(restaurant.consumption.includes('coxinha'));
     },
-    pay: () => (restaurant.consumption.reduce((acc, curr) => (
-      acc + createMenu(menu).fetchMenu()[curr]
-    )) * 1.1),
+    pay,
   });
 
 module.exports = { createMenu, restaurant };
