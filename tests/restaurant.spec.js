@@ -1,5 +1,5 @@
-const createMenu = require('../src/restaurant');
- 
+const { createMenu, restaurant } = require('../src/restaurant');
+
 /*
   Você é responsável por escrever o código do sistema de pedidos de um restaurante através do qual será possível
   cadastrar um menu. Dado que um menu foi cadastrado, o sistema deve disponibilizar um objeto que permite:
@@ -55,12 +55,29 @@ const createMenu = require('../src/restaurant');
 describe('10 - Implemente a função `createMenu`, bem como seus casos de teste', () => {
   it('Verifica se a função `createMenu` tem o comportamento esperado', () => {
     // TESTE 1: Verifique se função `createMenu()` retorna um objeto que possui a chave `fetchMenu`, a qual tem como valor uma função.
-    const menu = { food: {'coxinha': 3.9, 'sopa': 9.9}, drink: {'agua': 3.9, 'cerveja': 6.9} }
+    const restaurant = {
+      consumption: [],
+    }
+
     expect(typeof createMenu(menu).fetchMenu).toBe('function')
     let keysFunction = Object.keys(createMenu(menu).fetchMenu());
     let keysMenu = Object.keys(menu);
     let isEqual = keysFunction.map((item, index) => item === keysMenu[index]);
     expect(isEqual.every((item) => item === true)).toBe(true)
     expect(createMenu(menu).fetchMenu()).toEqual(menu)
+    expect(createMenu(menu).consumption).toEqual([])
+    createMenu(menu).order('coxinha')
+    expect(restaurant.consumption.includes('coxinha')).toBe(true)
+    createMenu(menu).order('sopa')
+    createMenu(menu).order('agua')
+    createMenu(menu).order('cerveja')
+    expect(restaurant.consumption).toContain('sopa')
+    expect(restaurant.consumption).toContain('agua')
+    expect(restaurant.consumption).toContain('cerveja')
+    createMenu(menu).order('cerveja')
+    expect(restaurant.consumption.join(', ').match(/cerveja/g)
+    ).toHaveLength(2)
+    expect(restaurant.pay()).toBe(31.5)
+
   });
 });
