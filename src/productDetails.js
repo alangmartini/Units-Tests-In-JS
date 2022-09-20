@@ -42,6 +42,4 @@ const productDetails = (firstProduct, secondProduct) => [
   },
 ];
 
-const a = 'Algo algo algo'
-console.log(a.search(/algo/g));
 module.exports = productDetails;
